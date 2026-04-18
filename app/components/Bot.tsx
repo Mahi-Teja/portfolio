@@ -76,7 +76,7 @@ export default function Bot() {
     setMessages((prev) => [...prev, userMessage]);
 
     setTimeout(() => {
-      setMessages((prev) => [
+      setMessages((prev: any) => [
         ...prev,
         { role: "bot", text: getBotResponse(text) },
       ]);
