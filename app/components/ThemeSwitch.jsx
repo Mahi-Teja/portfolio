@@ -13,11 +13,15 @@ const themes = [
 
 export default function ThemeToggle() {
 	const [open, setOpen] = useState(false);
-	const [theme, setTheme] = useState(() => {
-		if (typeof window === "undefined") return "light";
-		return localStorage.getItem("portfolio-theme") || document.documentElement.dataset.theme || "light";
-	});
+	const [theme, setTheme] = useState("light");
 	const menuRef = useRef(null);
+
+	useEffect(() => {
+		const saved = localStorage.getItem("portfolio-theme") || "light";
+		document.documentElement.dataset.theme = saved;
+		const frame = window.requestAnimationFrame(() => setTheme(saved));
+		return () => window.cancelAnimationFrame(frame);
+	}, []);
 
 	useEffect(() => {
 		const close = (event) => {
