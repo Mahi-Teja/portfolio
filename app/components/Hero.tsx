@@ -42,8 +42,8 @@ export default function Hero() {
               Currently
             </p>
             <p className="mt-2 text-sm leading-6 text-secondary">
-              Building enterprise experiences and exploring full-stack systems in
-              Hyderabad.
+              Building enterprise experiences and exploring full-stack systems
+              in Hyderabad.
             </p>
             <a
               href="#projects"

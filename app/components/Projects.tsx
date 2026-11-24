@@ -21,7 +21,8 @@ export default function Projects() {
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-6 text-secondary">
-            Useful products, live links, and code—not a wall of vague case studies.
+            Useful products, live links, and code—not a wall of vague case
+            studies.
           </p>
         </div>
 
@@ -33,8 +34,8 @@ export default function Projects() {
                 index === 0
                   ? "lg:col-span-7 lg:min-h-[430px]"
                   : index === 1
-                  ? "lg:col-span-5 lg:min-h-[430px]"
-                  : "lg:col-span-12 lg:min-h-[320px]"
+                    ? "lg:col-span-5 lg:min-h-[430px]"
+                    : "lg:col-span-12 lg:min-h-[320px]"
               }`}
             >
               <div className="absolute -right-12 -top-16 h-48 w-48 rounded-full border-[28px] border-primary/5 transition duration-500 group-hover:scale-110" />
