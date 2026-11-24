@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* ================= BASE ================= */
 html {
   scroll-behavior: smooth;
   /* Prevents layout shift when scrollbars appear/disappear */
@@ -8,40 +9,36 @@ html {
 
 /* ================= LIGHT MODE ================= */
 :root {
-  --background: #f8fafc; /* slate-50: soft, glare-free page bg */
-  --surface: #ffffff; /* pure white: crisp cards & containers */
-  --surface-hover: #f1f5f9; /* slate-100: subtle interactive hover */
-  --foreground: #0f172a; /* slate-900: high-contrast primary text */
-
-  --primary: #4f46e5; /* indigo-600 */
+  --background: #f6f7fb;
+  --surface: #ffffff;
+  --surface-hover: #eef1f7;
+  --foreground: #171923;
+  --primary: #5b5cf0;
   --primary-foreground: #ffffff;
-  --secondary: #475569; /* slate-600: darkened from 500 for better contrast */
-  --accent: #7c3aed; /* violet-600 */
-
-  --bubble: #ede9fe; /* violet-100: softer, cleaner tint */
-  --bubble-foreground: #2e1065; /* violet-950: crisp, high-contrast text */
-
-  --muted: #64748b; /* slate-500: readable helper/meta text */
-  --border: #e2e8f0; /* slate-200 */
+  --secondary: #626778;
+  --accent: #ec4899;
+  --bubble: #ececfe;
+  --bubble-foreground: #292a44;
+  --muted: #777c8d;
+  --border: #e5e7ef;
+  --grid: rgba(23, 25, 35, 0.055);
 }
 
 /* ================= DARK MODE ================= */
 .dark {
-  --background: #020617; /* slate-950: deep navy base */
-  --surface: #0f172a; /* slate-900: elevated card surface */
-  --surface-hover: #1e293b; /* slate-800: subtle interactive hover */
-  --foreground: #f1f5f9; /* slate-100: crisp off-white text */
-
-  --primary: #6366f1; /* indigo-500 */
-  --primary-foreground: #ffffff;
-  --secondary: #94a3b8; /* slate-400 */
-  --accent: #a78bfa; /* violet-400 */
-
-  --bubble: #3b206e; /* rich deep violet */
-  --bubble-foreground: #f3e8ff; /* violet-100: fixed low-contrast gray */
-
-  --muted: #64748b; /* slate-500 */
-  --border: #1e293b; /* slate-800 */
+  --background: #090b10;
+  --surface: #10131a;
+  --surface-hover: #171b24;
+  --foreground: #f4f5f7;
+  --primary: #8587ff;
+  --primary-foreground: #090b10;
+  --secondary: #adb2c0;
+  --accent: #f472b6;
+  --bubble: #262743;
+  --bubble-foreground: #ededff;
+  --muted: #9297a8;
+  --border: #242833;
+  --grid: rgba(255, 255, 255, 0.045);
 }
 
 /* ================= THEME TOKENS ================= */
@@ -91,4 +88,39 @@ body {
 ::selection {
   background-color: var(--primary);
   color: var(--primary-foreground);
+}
+
+/* ================= PORTFOLIO REDESIGN ================= */
+html {
+  scroll-padding-top: 6rem;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.page-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -3,7 +3,7 @@
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEYy,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 type ChatMessage = {

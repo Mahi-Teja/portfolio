@@ -1,46 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { Sun, Moon } from "lucide-react";
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
 
-  // Apply the 'dark' class to the html element
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
+    const saved = localStorage.getItem("theme");
+    const dark = saved
+      ? saved === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    document.documentElement.classList.toggle("dark", dark);
+    const frame = window.requestAnimationFrame(() => setIsDark(dark));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const toggleTheme = async (event) => {
-    // Check for browser support
+    const nextDark = !isDark;
+
     if (!document.startViewTransition) {
-      setIsDark(!isDark);
+      setIsDark(nextDark);
+      document.documentElement.classList.toggle("dark", nextDark);
+      localStorage.setItem("theme", nextDark ? "dark" : "light");
       return;
     }
 
-    // Get the click position
     const x = event.clientX;
     const y = event.clientY;
-
-    // Calculate distance to the furthest corner
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y),
     );
-
     const transition = document.startViewTransition(() => {
-      // flushSync ensures React updates the DOM before the snapshot is taken
-      flushSync(() => {
-        setIsDark(!isDark);
-      });
+      flushSync(() => setIsDark(nextDark));
+      document.documentElement.classList.toggle("dark", nextDark);
+      localStorage.setItem("theme", nextDark ? "dark" : "light");
     });
 
-    // Wait for the transition to be ready to animate
     await transition.ready;
-
     document.documentElement.animate(
       {
         clipPath: [
@@ -49,7 +47,7 @@ const ThemeToggle = () => {
         ],
       },
       {
-        duration: 500,
+        duration: 420,
         easing: "ease-in-out",
         pseudoElement: "::view-transition-new(root)",
       },
@@ -58,10 +56,12 @@ const ThemeToggle = () => {
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="cursor-pointer border border-primary/20 hover:border-primary/30 p-2 flex justify-center items-center rounded-xl bg-background text-foreground transition-transform active:scale-95"
+      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+      className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-border bg-surface text-foreground transition hover:border-primary/50 active:scale-95"
     >
-      {isDark ? <Sun size={18} /> : <Moon size={18} />}
+      {isDark ? <Sun size={16} /> : <Moon size={16} />}
     </button>
   );
 };

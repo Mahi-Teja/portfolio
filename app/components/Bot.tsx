@@ -88,7 +88,9 @@ export default function Bot() {
             <div className="flex justify-between items-center px-5 py-4 border-b border-border">
               <div className="flex items-center gap-2">
                 <BotIcon size={18} className="text-primary" />
-                <span className="text-sm font-semibold">Mahi's Assistant</span>
+                <span className="text-sm font-semibold">
+                  Mahi&apos;s Assistant
+                </span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}

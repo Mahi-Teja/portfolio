@@ -1,108 +1,56 @@
 "use client";
 
-import { motion } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-    },
-  },
-};
-
 export default function About() {
   const skills = [
+    "JavaScript",
+    "TypeScript",
     "React",
     "Next.js",
     "Node.js",
-    "Go",
+    "Express",
     "PostgreSQL",
     "MongoDB",
-    "Docker",
-    "Tailwind",
     "Redux",
+    "Recoil",
+    "Docker",
+    "Git",
   ];
 
   return (
     <section
       id="about"
-      className="py-28 px-6 md:px-16 border-t border-black/5 dark:border-white/10 bg-neutral-50/50 dark:bg-transparent"
+      className="border-t border-border px-6 py-24 md:px-12 md:py-32 lg:px-16"
     >
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          {/* Label */}
-          <motion.p
-            variants={itemVariants}
-            className="text-[10px] font-mono uppercase tracking-[0.3em] text-primary mb-6"
-          >
+      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_0.8fr]">
+        <div>
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-primary">
             About
-          </motion.p>
-
-          {/* Heading */}
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-10 max-w-3xl"
-          >
-            Full-stack engineer building
-            <span className="text-muted-foreground">
-              {" "}
-              scalable systems & clean user experiences.
-            </span>
-          </motion.h2>
-
-          {/* Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Left */}
-            <motion.div
-              variants={itemVariants}
-              className="space-y-4 text-base text-muted-foreground leading-relaxed"
-            >
-              <p>
-                Focused on performance, scalability, and developer experience.
-              </p>
-              <p>I design systems that stay maintainable as they grow.</p>
-            </motion.div>
-
-            {/* Right */}
-            <motion.div variants={itemVariants} className="space-y-6">
-              <p className="text-xs font-mono uppercase tracking-widest text-primary">
-                Stack
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 text-xs border border-black/10 dark:border-white/10 rounded-full bg-white dark:bg-white/[0.03]"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-
-              <p className="text-xs text-muted-foreground italic">
-                Currently exploring Go & high-concurrency systems.
-              </p>
-            </motion.div>
+          </p>
+          <h2 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.045em] md:text-6xl">
+            Good systems feel simple—because the hard decisions are handled with
+            care.
+          </h2>
+        </div>
+        <div className="md:pt-12">
+          <p className="mb-8 text-lg leading-8 text-secondary">
+            I’m a full-stack engineer focused on data-intensive interfaces,
+            reusable architecture, and reliable APIs. I enjoy turning complex
+            workflows into focused, performant experiences.
+          </p>
+          <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+            Core stack
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border border-border bg-surface px-3.5 py-2 text-sm text-secondary"
+              >
+                {skill}
+              </span>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

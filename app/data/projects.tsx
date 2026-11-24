@@ -4,39 +4,36 @@ const projectData = [
     title: "Dx Tracker",
     category: "FinTech",
     description:
-      "A full-stack expense tracking system that enables users to monitor daily spending, analyze financial patterns, and make data-driven budgeting decisions.",
+      "A full-stack expense tracking system for monitoring daily spending, recognizing patterns, and supporting more informed budgeting decisions.",
     techStack: ["React", "Redux", "Express", "MongoDB", "Recharts"],
     links: {
       live: "https://dxapp.anempty.com",
-      source: "#",
+      source: "https://github.com/Mahi-teja/dx-app-fe",
     },
-    image: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Dx+Tracker",
   },
   {
     id: 2,
     title: "Score Board",
     category: "Sports Tech",
     description:
-      "A real-time scoring application for tracking competitive matches with efficient state management and responsive UI for live updates.",
-    techStack: ["React", "Recoil", "Tailwind"],
+      "A responsive real-time scoring application for tracking innings, overs, wickets, and match score history.",
+    techStack: ["React", "Recoil", "Tailwind CSS"],
     links: {
       live: "https://scoreboard.anempty.com",
-      source: "https://github.com/mahi-teja/Score-Board",
+      source: "https://github.com/Mahi-teja/Score-Board",
     },
-    image: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Score+Board",
   },
   {
     id: 3,
     title: "Portfolio",
     category: "Personal Branding",
     description:
-      "A modern developer portfolio showcasing projects, skills, and experience with smooth animations. ",
-    techStack: ["Next.js", "Tailwind CSS", "Framer Motion"],
+      "A fast, accessible developer portfolio focused on clear storytelling, responsive design, subtle motion, and an AI-powered visitor assistant.",
+    techStack: ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS"],
     links: {
-      live: "#",
-      source: "https://github.com/mahi-teja/Portfolio",
+      live: "https://anempty.com",
+      source: "https://github.com/Mahi-teja/Portfolio",
     },
-    image: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Portfolio",
   },
 ];
 
