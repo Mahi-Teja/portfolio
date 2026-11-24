@@ -1,69 +1,109 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { Sun, Moon } from "lucide-react";
+import { Check, Moon, Palette, Sun } from "lucide-react";
 
-const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
+const themes = [
+	{ id: "light", name: "Paper", icon: Sun },
+	{ id: "dark", name: "Graphite", icon: Moon },
+	{ id: "midnight", name: "Midnight", icon: Moon },
+	{ id: "colorful", name: "Playful", icon: Palette },
+];
 
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const dark = saved
-      ? saved === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+export default function ThemeToggle() {
+	const [open, setOpen] = useState(false);
+	const [theme, setTheme] = useState(() => {
+		if (typeof window === "undefined") return "light";
+		return localStorage.getItem("portfolio-theme") || document.documentElement.dataset.theme || "light";
+	});
+	const menuRef = useRef(null);
 
-    document.documentElement.classList.toggle("dark", dark);
-    const frame = window.requestAnimationFrame(() => setIsDark(dark));
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+	useEffect(() => {
+		const close = (event) => {
+			if (menuRef.current && !menuRef.current.contains(event.target))
+				setOpen(false);
+		};
+		document.addEventListener("pointerdown", close);
+		return () => document.removeEventListener("pointerdown", close);
+	}, []);
 
-  const toggleTheme = async (event) => {
-    const nextDark = !isDark;
+	const chooseTheme = async (next, event) => {
+		const apply = () => {
+			flushSync(() => setTheme(next));
+			document.documentElement.dataset.theme = next;
+			localStorage.setItem("portfolio-theme", next);
+		};
 
-    if (!document.startViewTransition) {
-      setIsDark(nextDark);
-      document.documentElement.classList.toggle("dark", nextDark);
-      localStorage.setItem("theme", nextDark ? "dark" : "light");
-      return;
-    }
+		if (!document.startViewTransition) {
+			apply();
+			setOpen(false);
+			return;
+		}
 
-    const x = event.clientX;
-    const y = event.clientY;
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
-    );
-    const transition = document.startViewTransition(() => {
-      flushSync(() => setIsDark(nextDark));
-      document.documentElement.classList.toggle("dark", nextDark);
-      localStorage.setItem("theme", nextDark ? "dark" : "light");
-    });
+		const rect = event.currentTarget.getBoundingClientRect?.();
+		const x = rect?.left ?? event.clientX;
+		const y = rect?.top ?? event.clientY;
+		const transition = document.startViewTransition(apply);
+		await transition.ready;
+		const radius = Math.hypot(
+			Math.max(x, window.innerWidth - x),
+			Math.max(y, window.innerHeight - y),
+		);
+		document.documentElement.animate(
+			{
+				clipPath: [
+					`circle(0px at ${x}px ${y}px)`,
+					`circle(${radius}px at ${x}px ${y}px)`,
+				],
+			},
+			{
+				duration: 420,
+				easing: "cubic-bezier(.22,1,.36,1)",
+				pseudoElement: "::view-transition-new(root)",
+			},
+		);
+		setOpen(false);
+	};
 
-    await transition.ready;
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration: 420,
-        easing: "ease-in-out",
-        pseudoElement: "::view-transition-new(root)",
-      },
-    );
-  };
+	const Icon = themes.find((item) => item.id === theme)?.icon || Palette;
 
-  return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-border bg-surface text-foreground transition hover:border-primary/50 active:scale-95"
-    >
-      {isDark ? <Sun size={16} /> : <Moon size={16} />}
-    </button>
-  );
-};
+	return (
+		<div ref={menuRef} className="relative">
+			<button
+				type="button"
+				onClick={() => setOpen((value) => !value)}
+				aria-label="Choose a color theme"
+				aria-expanded={open}
+				className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface text-foreground shadow-sm transition hover:-rotate-6 hover:border-primary/60"
+			>
+				<Icon size={17} strokeWidth={1.8} />
+			</button>
 
-export default ThemeToggle;
+			{open && (
+				<div className="absolute right-0 top-12 w-52 rounded-[1.25rem] border border-border bg-surface p-2 editorial-shadow">
+					<p className="px-3 pb-2 pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+						Mood
+					</p>
+					{themes.map((item) => {
+						const ItemIcon = item.icon;
+						return (
+							<button
+								key={item.id}
+								type="button"
+								onClick={(event) => chooseTheme(item.id, event)}
+								className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-secondary transition hover:bg-surface-hover hover:text-foreground"
+							>
+								<ItemIcon size={15} />
+								<span className="flex-1 text-left">{item.name}</span>
+								{theme === item.id && (
+									<Check size={14} className="text-primary" />
+								)}
+							</button>
+						);
+					})}
+				</div>
+			)}
+		</div>
+	);
+}

@@ -1,72 +1,59 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative isolate flex min-h-[92vh] items-center px-6 pb-16 pt-28 md:px-12 lg:px-16"
+      className="relative flex min-h-[94svh] items-end overflow-hidden px-5 pb-12 pt-28 sm:px-8 md:px-12 lg:px-16 lg:pb-16"
     >
-      <div className="page-grid pointer-events-none absolute inset-0 -z-10" />
-      <div className="mx-auto w-full max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 flex items-center gap-3"
-        >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60 motion-reduce:animate-none" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-          </span>
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-secondary">
-            Available for opportunities
-          </p>
-        </motion.div>
+      <div className="dot-grid pointer-events-none absolute inset-0 -z-10 opacity-55" />
+      <div className="absolute right-[8%] top-[18%] h-44 w-44 rounded-full bg-accent/20 blur-[70px]" />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.65,
-            delay: 0.08,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="text-balance max-w-5xl text-[clamp(3.25rem,9vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.065em]"
-        >
-          Engineering <span className="text-primary">clarity</span>
-          <br />
-          into digital products.
-        </motion.h1>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="mx-auto w-full max-w-7xl"
+      >
+        <div className="grid items-end gap-8 lg:grid-cols-[1fr_280px]">
+          <div>
+            <div className="mb-7 inline-flex -rotate-2 items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-xs font-medium shadow-sm">
+              <Sparkles size={14} className="text-primary" />
+              Hey, I’m Mahi — engineer & builder
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.18 }}
-          className="mt-10 flex max-w-5xl flex-col gap-8 border-t border-border pt-7 md:flex-row md:items-end md:justify-between"
-        >
-          <p className="max-w-xl text-lg leading-8 text-secondary md:text-xl">
-            I’m Neeli Mahi Teja, a full-stack engineer building fast, scalable
-            interfaces and reliable systems.
-          </p>
-          <div className="flex flex-wrap gap-3">
+            <h1 className="max-w-5xl text-[clamp(3.7rem,10vw,8.8rem)] leading-[0.82] tracking-[-0.075em]">
+              Making{" "}
+              <span className="font-serif italic text-primary">complex</span>
+              <br /> feel wonderfully simple.
+            </h1>
+          </div>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 20, rotate: 4 }}
+            animate={{ opacity: 1, y: 0, rotate: -2 }}
+            transition={{ delay: 0.25, duration: 0.55 }}
+            className="mb-2 rounded-[1.75rem] border border-border bg-surface p-5 editorial-shadow lg:mb-4"
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+              Currently
+            </p>
+            <p className="mt-2 text-sm leading-6 text-secondary">
+              Building enterprise experiences and exploring full-stack systems in
+              Hyderabad.
+            </p>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5"
+              className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm font-semibold"
             >
-              Explore work <ArrowDownRight size={17} />
+              See what I’m making <ArrowDown size={16} />
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3.5 text-sm font-semibold transition hover:border-primary/50"
-            >
-              Start a conversation <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </motion.div>
-      </div>
+          </motion.aside>
+        </div>
+      </motion.div>
     </section>
   );
 }

@@ -41,6 +41,87 @@ html {
   --grid: rgba(255, 255, 255, 0.045);
 }
 
+/* ================= NEW CREATIVE THEME SYSTEM ================= */
+:root {
+  --background: #f7f4ed;
+  --surface: #fffdf8;
+  --surface-strong: #ece7dc;
+  --surface-hover: #eee9de;
+  --foreground: #20201d;
+  --primary: #df4b32;
+  --primary-foreground: #ffffff;
+  --secondary: #65715d;
+  --accent: #f2bd43;
+  --muted: #77776f;
+  --border: #ddd7c9;
+  --success: #31825b;
+  --warning: #b86c16;
+  --error: #bd3838;
+  --bubble: #eee8d9;
+  --bubble-foreground: #34342f;
+  --shadow: 0 24px 80px rgba(54, 47, 31, 0.12);
+}
+
+[data-theme="dark"] {
+  --background: #17171b;
+  --surface: #212125;
+  --surface-strong: #2b2b31;
+  --surface-hover: #303038;
+  --foreground: #f4f1e8;
+  --primary: #ff8066;
+  --primary-foreground: #17171b;
+  --secondary: #b8bea9;
+  --accent: #f5ca64;
+  --muted: #aaa89f;
+  --border: #37373d;
+  --success: #75c99a;
+  --warning: #ecc277;
+  --error: #ff8e8e;
+  --bubble: #303039;
+  --bubble-foreground: #f2efe6;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+[data-theme="midnight"] {
+  --background: #02040a;
+  --surface: #080d18;
+  --surface-strong: #0d1424;
+  --surface-hover: #111a2d;
+  --foreground: #edf4ff;
+  --primary: #73a7ff;
+  --primary-foreground: #02040a;
+  --secondary: #9eb1c9;
+  --accent: #78e4bd;
+  --muted: #7d8da3;
+  --border: #172038;
+  --success: #78e4bd;
+  --warning: #f3d27a;
+  --error: #ff8aa8;
+  --bubble: #111a2d;
+  --bubble-foreground: #edf4ff;
+  --shadow: 0 24px 90px rgba(0, 0, 0, 0.58);
+}
+
+[data-theme="colorful"] {
+  --background: #f3efff;
+  --surface: #fffaff;
+  --surface-strong: #e8dcff;
+  --surface-hover: #ede5ff;
+  --foreground: #24183a;
+  --primary: #7446df;
+  --primary-foreground: #ffffff;
+  --secondary: #287f78;
+  --accent: #ff6fae;
+  --muted: #77708a;
+  --border: #dcd1ef;
+  --success: #16846d;
+  --warning: #b86c14;
+  --error: #c43f66;
+  --bubble: #eadfff;
+  --bubble-foreground: #352448;
+  --shadow: 0 24px 80px rgba(98, 62, 155, 0.16);
+}
+
 /* ================= THEME TOKENS ================= */
 @theme inline {
   --color-background: var(--background);
@@ -60,6 +141,11 @@ html {
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-surface-strong: var(--surface-strong);
 }
 
 /* ================= GLOBAL ================= */
@@ -76,6 +162,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 240ms ease, color 240ms ease;
 }
 
 /* Cleaner focus states for inputs and buttons */
@@ -124,3 +211,17 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+.dot-grid {
+  background-image: radial-gradient(var(--border) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+.editorial-shadow { box-shadow: var(--shadow); }
+
+.mini-scrollbar { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.mini-scrollbar::-webkit-scrollbar { width: 6px; }
+.mini-scrollbar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+@keyframes float-gentle { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
+.animate-float-gentle { animation: float-gentle 5s ease-in-out infinite; }
