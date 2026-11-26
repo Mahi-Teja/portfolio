@@ -35,6 +35,18 @@ const projectData = [
       source: "https://github.com/Mahi-teja/Portfolio",
     },
   },
+  {
+    id: 4,
+    title: "Fun",
+    category: "fun",
+    description:
+      "A creative space built to experiment with ideas, explore playful web experiences, and try out different UI concepts. Developed with AI-assisted coding, focusing on modern design, interactive elements, smooth animations, and an enjoyable user experience. A playground for creativity, experimentation, and learning by building.",
+    techStack: ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS"],
+    links: {
+      live: "https://fun.anempty.com",
+      source: "https://github.com/Mahi-teja/fun",
+    },
+  },
 ];
 
 export default projectData;
